@@ -13,10 +13,10 @@
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
 
 
-window.findSolution = function(row, n, board, validator, callback) {
+window.findSolution = function(row, n, board, property, cb) {
   // if all rows exhausted, this is a valid solution.
   if (row === n) {
-    return callback();
+    return cb();
   }
 
   // iterate over possible decisions
@@ -24,8 +24,8 @@ window.findSolution = function(row, n, board, validator, callback) {
     // place a piece
     board.togglePiece(row, i);
     // recurse into remaining problem
-    if (!board[validator]()) {
-      var result = findSolution(row + 1, n, board, validator, callback);
+    if (!board[property]()) {
+      var result = findSolution(row + 1, n, board, property, cb);
       if (result) {
         return result; // EJECT
       }
